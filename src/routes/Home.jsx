@@ -135,9 +135,11 @@ function Home() {
         setData(res)
       })
     }
-
-    document.querySelector(`:root`).style.setProperty('--theme', `${searchParams.get(`theme`)}`)
-    document.querySelector(`:root`).style.setProperty('--scrollbarBG', `${searchParams.get(`theme`)}`)
+    
+    if (searchParams.get(`theme`)) {
+      document.querySelector(`:root`).style.setProperty('--theme', `${searchParams.get(`theme`)}`)
+      document.querySelector(`:root`).style.setProperty('--scrollbarBG', `${searchParams.get(`theme`)}`)
+    }
   }, [])
 
   return (
