@@ -101,7 +101,9 @@ function Home() {
         </figure>
         <h2 className={`text-capitalize`}>{import.meta.env.VITE_NAME}</h2>
         <b>{import.meta.env.VITE_SLOGAN}</b>
-        <a className={`text-underline`} style={{color:`var(--area3)`}} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>Donate with emojies</a>
+        <a className={`text-underline`} style={{ color: `var(--area3)` }} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>
+          Make your donation with emojis!
+        </a>
       </header>
 
       <main className={`${styles.main}`}>
@@ -179,7 +181,6 @@ function Home() {
                           <td className={``}>
                             {parseFloat(_.fromWei(item.value, `ether`)).toFixed(2)} ${data.data.Asset[0].lsp4TokenSymbol}
                           </td>
-
                         </tr>
                       )
                     })}
@@ -193,7 +194,7 @@ function Home() {
             <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `250px` }}>
               {data.data.Asset[0].holders.map((holder, i) => {
                 return (
-                  <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''}`} data-index={i+1 === 1 ? `🥇` :i+1 == 2 ? `🥈` : i+1 === 3 ? `🥉` : i+1}>
+                  <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
                       <b>{new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}</b>
                       {holder.profile.profileImages.length > 0 ? (
