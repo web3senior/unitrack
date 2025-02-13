@@ -94,6 +94,7 @@ function Home() {
     })
 
     document.querySelector(`:root`).style.setProperty('--theme', `#${searchParams.get(`theme`)}`);
+    document.querySelector(`:root`).style.setProperty('--scrollbarBG', `#${searchParams.get(`theme`)}`);
   }, [])
 
   return (
