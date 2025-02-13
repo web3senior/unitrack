@@ -191,7 +191,7 @@ function Home() {
 
             <h2 className={`text-uppercase mt-20 mb-20`}>#100 ${data.data.Asset[0].lsp4TokenSymbol} Holders</h2>
 
-            <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `250px` }}>
+            <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `280px` }}>
               {data.data.Asset[0].holders.map((holder, i) => {
                 return (
                   <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''} ${holder.profile.id === `0x000000000000000000000000000000000000dead` ? styles['dead'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
