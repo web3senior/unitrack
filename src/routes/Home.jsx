@@ -187,6 +187,8 @@ function Home() {
               </div>
             </div>
 
+            <h2 className={`text-uppercase mt-20 mb-20`}>#100 ${data.data.Asset[0].lsp4TokenSymbol} Holders</h2>
+
             <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `250px` }}>
               {data.data.Asset[0].holders.map((holder, i) => {
                 return (
