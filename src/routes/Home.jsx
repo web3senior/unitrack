@@ -214,7 +214,7 @@ function Home() {
                       {holder.profile.profileImages.length > 0 ? (
                         <a key={i} target={`_blank`} className={`d-f-c flex-column`} href={`https://universaleverything.io/${holder.profile.id}`}>
                           <img className={`rounded ms-depth-16`} alt={holder.profile.name} title={``} src={`${holder.profile.profileImages[0].src}`} />
-                          <small>{holder.profile.fullName.slice(0, 15)} </small>
+                          <small>{holder.profile.fullName && holder.profile.fullName.slice(0, 15)} </small>
                         </a>
                       ) : (
                         <a key={i} target={`_blank`} href={`https://universaleverything.io/${holder.profile.id}`}>
