@@ -130,7 +130,7 @@ function Home() {
                 </div>
 
                 <figure>
-                  <img style={{width: `128px`}} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
+                  <img className={`rounded`} style={{width: `128px`}} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
                 </figure>
               </div>
             </div>
