@@ -92,10 +92,12 @@ function Home() {
       console.log(res)
       setData(res)
     })
+
+    document.querySelector(`:root`).style.setProperty('--theme', `#${searchParams.get(`theme`)}`);
   }, [])
 
   return (
-    <div className={`${styles.page} __container`} data-width={`large`}>
+    <div className={`${styles.page} page __container`} data-width={`large`}>
       <Toaster />
       <header className={`${styles.header} d-flex flex-column align-items-center justify-content-between`}>
         <figure className={`ms-motion-slideDownIn`}>
@@ -129,7 +131,7 @@ function Home() {
                   <p>
                     <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
                   </p>
-                  <a style={{ color: 'var(--LUKSO)' }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
+                  <a style={{ color: 'var(--LUKSO)',textUnderlineOffset: `4px` }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
                     <b>Swap now</b>
                   </a>
                 </div>
