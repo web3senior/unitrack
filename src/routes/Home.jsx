@@ -164,14 +164,10 @@ function Home() {
                           </td>
 
                           <td className={``}>
-                            {parseFloat(_.fromWei(item.value, `ether`)).toFixed(2)} ${data.data.Asset[0].lsp4TokenSymbol}
-                          </td>
-
-                          <td className={``}>
                             {item.to.profileImages.length > 0 ? (
-                              <a key={i} target={`_blank`} href={`https://universaleverything.io/${item.to.id}`}>
+                              <a key={i} target={`_blank`} className={`d-flex align-items-center grid--gap-025`} href={`https://universaleverything.io/${item.from.id}`}>
                                 <img style={{ width: `32px`, height: `32px` }} className={`rounded ms-depth-16`} alt={item.to.fullName} title={``} src={`${item.to.profileImages[0].src}`} />
-                                {item.from.fullName}
+                                {item.to.fullName}
                               </a>
                             ) : (
                               <a target={`_blank`} className={`d-flex align-items-center grid--gap-025`} href={`https://universaleverything.io/${item.from.id}`}>
@@ -179,6 +175,11 @@ function Home() {
                               </a>
                             )}
                           </td>
+
+                          <td className={``}>
+                            {parseFloat(_.fromWei(item.value, `ether`)).toFixed(2)} ${data.data.Asset[0].lsp4TokenSymbol}
+                          </td>
+
                         </tr>
                       )
                     })}
