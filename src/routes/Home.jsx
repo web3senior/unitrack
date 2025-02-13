@@ -196,7 +196,10 @@ function Home() {
                 return (
                   <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
-                      <b>{new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}</b>
+                      <b>
+                        {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))} 
+<small className={`text-secondary`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
+                      </b>
                       {holder.profile.profileImages.length > 0 ? (
                         <a key={i} target={`_blank`} href={`https://universaleverything.io/${holder.profile.id}`}>
                           <img className={`rounded ms-depth-16`} alt={holder.profile.name} title={``} src={`${holder.profile.profileImages[0].src}`} />
