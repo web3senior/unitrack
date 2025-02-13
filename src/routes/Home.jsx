@@ -93,7 +93,7 @@ function Home() {
       setData(res)
     })
 
-    document.querySelector(`:root`).style.setProperty('--theme', `#${searchParams.get(`theme`)}`);
+    document.querySelector(`:root`).style.setProperty('--theme', `${searchParams.get(`theme`)}`);
   }, [])
 
   return (
