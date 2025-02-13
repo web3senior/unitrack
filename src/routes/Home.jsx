@@ -166,7 +166,7 @@ function Home() {
                     lsp7list.map((item, i) => {
                       return (
                         <option key={i} value={`${item.id}`}>
-                          {item.lsp4TokenName} ({item.lsp4TokenSymbol})
+                          {item.lsp4TokenName} (${item.lsp4TokenSymbol})
                         </option>
                       )
                     })}
