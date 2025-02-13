@@ -88,13 +88,15 @@ function Home() {
   }
 
   useEffect(() => {
-    get_lsp7(searchParams.get(`asset`)).then((res) => {
-      console.log(res)
-      setData(res)
-    })
+    if (searchParams.get(`asset`)) {
+      get_lsp7(searchParams.get(`asset`)).then((res) => {
+        console.log(res)
+        setData(res)
+      })
+    }
 
-    document.querySelector(`:root`).style.setProperty('--theme', `#${searchParams.get(`theme`)}`);
-    document.querySelector(`:root`).style.setProperty('--scrollbarBG', `#${searchParams.get(`theme`)}`);
+    document.querySelector(`:root`).style.setProperty('--theme', `${searchParams.get(`theme`)}`)
+    document.querySelector(`:root`).style.setProperty('--scrollbarBG', `${searchParams.get(`theme`)}`)
   }, [])
 
   return (
@@ -106,12 +108,28 @@ function Home() {
         </figure>
         <h2 className={`text-capitalize`}>{import.meta.env.VITE_NAME}</h2>
         <b>{import.meta.env.VITE_SLOGAN}</b>
-        <a className={`text-underline`} style={{ color: `var(--area3)` }} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>
+        <a className={`text-underline`} style={{ color: `var(--black-900)` }} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>
           Make your donation with emojis!
         </a>
       </header>
 
       <main className={`${styles.main}`}>
+        {!data && (
+       <div className={`__container`} data-width={`small`}>
+            <form action="" method={`get`} className={`form`}>
+              <div className={`form-group`}>
+                <input className={`w-100`} type="text" name={`asset`} placeholder={`Contract address`} />
+              </div>
+              <div className={`form-group`}>
+                <label htmlFor="">Theme:</label>
+                <input className={`w-100`} type={`color`} name={`theme`} />
+              </div>
+              <div className={`form-group`}>
+                <button className={`w-100 btn`}>Submit</button>
+              </div>
+            </form>
+          </div>
+        )}
         {data && (
           <>
             <div className={`card`}>
@@ -132,7 +150,7 @@ function Home() {
                   <p>
                     <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
                   </p>
-                  <a style={{ color: 'var(--LUKSO)',textUnderlineOffset: `4px` }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
+                  <a style={{ color: 'var(--LUKSO)', textUnderlineOffset: `4px` }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
                     <b>Swap now</b>
                   </a>
                 </div>
@@ -159,7 +177,7 @@ function Home() {
                       return (
                         <tr key={i}>
                           <td className={`d-flex align-items-center grid--gap-025`}>
-                          {i + 1 == 1 ? `1️⃣` : i + 1 == 2 ? `2️⃣` : i + 1 == 3 ? `3️⃣` : i + 1 == 4 ? `4️⃣` : i + 1 == 5 ? `5️⃣` : ''}
+                            {i + 1 == 1 ? `1️⃣` : i + 1 == 2 ? `2️⃣` : i + 1 == 3 ? `3️⃣` : i + 1 == 4 ? `4️⃣` : i + 1 == 5 ? `5️⃣` : ''}
                             {item.from.profileImages.length > 0 ? (
                               <a key={i} target={`_blank`} className={`d-flex align-items-center grid--gap-025`} href={`https://universaleverything.io/${item.from.id}`}>
                                 <img style={{ width: `32px`, height: `32px` }} className={`rounded ms-depth-16`} alt={item.from.fullName} title={item.from.fullName} src={`${item.from.profileImages[0].src}`} />
