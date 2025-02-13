@@ -5,6 +5,7 @@ import party from 'party-js'
 import ABI from './../abi/giftmoji.json'
 import toast, { Toaster } from 'react-hot-toast'
 import Icon from './helper/MaterialIcon'
+import Loading from './components/LoadingSpinner'
 import Web3 from 'web3'
 import Logo from './../../public/logo.svg'
 import styles from './Home.module.scss'
@@ -13,7 +14,9 @@ const web3ReadOnly = new Web3(import.meta.env.VITE_LUKSO_PROVIDER)
 const contractReadOnly = new web3ReadOnly.eth.Contract(ABI, import.meta.env.VITE_CONTRACT)
 
 function Home() {
+  const [status, setStatus] = useState('')
   const [data, setData] = useState()
+  const [lsp7list, setLsp7list] = useState([])
   let [searchParams] = useSearchParams()
 
   async function get_lsp7(contract) {
@@ -87,10 +90,48 @@ function Home() {
     return data
   }
 
+  async function searchLSP7(e) {
+    const q = e.target.value
+
+    setStatus(`searching`)
+
+    let myHeaders = new Headers()
+    myHeaders.append('Content-Type', `application/json`)
+    myHeaders.append('Accept', `application/json`)
+
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({
+        query: `query MyQuery {
+  Asset(where: {lsp4TokenName: {_ilike: "%${q}%"}, isLSP7: {_eq: true}}, limit: 5) {
+    id
+    isLSP7
+    lsp4TokenName
+    lsp4TokenSymbol
+    lsp4TokenType
+    name
+    totalSupply
+    owner_id
+  }
+}`,
+      }),
+    }
+
+    const response = await fetch(`${import.meta.env.VITE_LUKSO_API_ENDPOINT}`, requestOptions)
+    if (!response.ok) {
+      return { result: false, message: `Failed to fetch query` }
+    }
+    const data = await response.json()
+    setStatus(``)
+    // console.log(data)
+    if (data.data.Asset.length > 0) setLsp7list(data.data.Asset)
+  }
+
   useEffect(() => {
     if (searchParams.get(`asset`)) {
       get_lsp7(searchParams.get(`asset`)).then((res) => {
-        console.log(res)
+        // console.log(res)
         setData(res)
       })
     }
@@ -115,10 +156,21 @@ function Home() {
 
       <main className={`${styles.main}`}>
         {!data && (
-       <div className={`__container`} data-width={`small`}>
+          <div className={`__container`} data-width={`small`}>
             <form action="" method={`get`} className={`form`}>
               <div className={`form-group`}>
-                <input className={`w-100`} type="text" name={`asset`} placeholder={`Contract address`} />
+                <div style={{ height: `24px` }}>{status === `searching` && <Loading />}</div>
+                <input list={`tokens`} className={`w-100`} type="text" name={`asset`} placeholder={`Search token`} onKeyPress={(e) => searchLSP7(e)} />
+                <datalist id="tokens">
+                  {lsp7list.length > 0 &&
+                    lsp7list.map((item, i) => {
+                      return (
+                        <option key={i} value={`${item.id}`}>
+                          {item.lsp4TokenName} ({item.lsp4TokenSymbol})
+                        </option>
+                      )
+                    })}
+                </datalist>
               </div>
               <div className={`form-group`}>
                 <label htmlFor="">Theme:</label>
