@@ -100,7 +100,8 @@ function Home() {
           <img className={`Logo`} src={Logo} alt={`${import.meta.env.VITE_NAME}`} width={220} height={48} />
         </figure>
         <h2 className={`text-capitalize`}>{import.meta.env.VITE_NAME}</h2>
-        <p>{import.meta.env.NEXT_PUBLIC_SLOGAN}</p>
+        <b>{import.meta.env.VITE_SLOGAN}</b>
+        <a className={`text-underline`} style={{color:`var(--area3)`}} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>Donate with emojies</a>
       </header>
 
       <main className={`${styles.main}`}>
