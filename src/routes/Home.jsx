@@ -4,6 +4,7 @@ import { web3, contract, useAuth, _, provider } from './../contexts/AuthContext'
 import party from 'party-js'
 import ABI from './../abi/giftmoji.json'
 import toast, { Toaster } from 'react-hot-toast'
+import Icon from './helper/MaterialIcon'
 import Web3 from 'web3'
 import Logo from './../../public/logo.svg'
 import styles from './Home.module.scss'
@@ -128,10 +129,13 @@ function Home() {
                   <p>
                     <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
                   </p>
+                  <a style={{ color: 'var(--LUKSO)' }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
+                    <b>Swap now</b>
+                  </a>
                 </div>
 
                 <figure>
-                  <img className={`rounded ms-depth-16`} style={{ width: `128px` }} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
+                  <img className={`rounded ms-depth-16`} style={{ width: `128px`, height: `128px` }} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
                 </figure>
               </div>
             </div>
@@ -142,7 +146,6 @@ function Home() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Row</th>
                       <th>From</th>
                       <th>To</th>
                       <th>Value</th>
@@ -152,8 +155,8 @@ function Home() {
                     {data.data.Asset[0].transfers.map((item, i) => {
                       return (
                         <tr key={i}>
-                          <td>{++i}</td>
-                          <td>
+                          <td className={`d-flex align-items-center grid--gap-025`}>
+                          {i + 1 == 1 ? `1️⃣` : i + 1 == 2 ? `2️⃣` : i + 1 == 3 ? `3️⃣` : i + 1 == 4 ? `4️⃣` : i + 1 == 5 ? `5️⃣` : ''}
                             {item.from.profileImages.length > 0 ? (
                               <a key={i} target={`_blank`} className={`d-flex align-items-center grid--gap-025`} href={`https://universaleverything.io/${item.from.id}`}>
                                 <img style={{ width: `32px`, height: `32px` }} className={`rounded ms-depth-16`} alt={item.from.fullName} title={item.from.fullName} src={`${item.from.profileImages[0].src}`} />
@@ -195,17 +198,20 @@ function Home() {
             <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `250px` }}>
               {data.data.Asset[0].holders.map((holder, i) => {
                 return (
-                  <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''} ${holder.profile.id === `0x000000000000000000000000000000000000dead` ? styles['dead'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
+                  <div
+                    key={i}
+                    className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''} ${holder.profile.id === `0x000000000000000000000000000000000000dead` ? styles['dead'] : ''}`}
+                    data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}
+                  >
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
                       <b>
                         {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}
                         <small className={`text-secondary`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
                       </b>
                       {holder.profile.profileImages.length > 0 ? (
-                        <a key={i} target={`_blank`} className={`d-f-c flex-column`}
-                        href={`https://universaleverything.io/${holder.profile.id}`}>
+                        <a key={i} target={`_blank`} className={`d-f-c flex-column`} href={`https://universaleverything.io/${holder.profile.id}`}>
                           <img className={`rounded ms-depth-16`} alt={holder.profile.name} title={``} src={`${holder.profile.profileImages[0].src}`} />
-                          <small>{holder.profile.fullName.slice(0,15)} </small>
+                          <small>{holder.profile.fullName.slice(0, 15)} </small>
                         </a>
                       ) : (
                         <a key={i} target={`_blank`} href={`https://universaleverything.io/${holder.profile.id}`}>
