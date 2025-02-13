@@ -130,7 +130,7 @@ function Home() {
                 </div>
 
                 <figure>
-                  <img className={`rounded`} style={{width: `128px`}} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
+                  <img className={`rounded ms-depth-16`} style={{width: `128px`}} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
                 </figure>
               </div>
             </div>
@@ -179,7 +179,7 @@ function Home() {
                           </td>
 
                           <td className={``}>
-                            {parseFloat(_.fromWei(item.value, `ether`)).toFixed(2)} ${data.data.Asset[0].lsp4TokenSymbol}
+                            {new Intl.NumberFormat().format(parseFloat(_.fromWei(item.value, `ether`)).toFixed(2))} ${data.data.Asset[0].lsp4TokenSymbol}
                           </td>
                         </tr>
                       )
