@@ -152,9 +152,31 @@
   }
 }
 
+.dead {
+  border: 2px solid var(--gray);
+
+  &:after {
+    content: 'Dead';
+    position: absolute;
+    left: 0.6rem;
+    top: 0.4rem;
+    background-color: var(--black);
+    font-weight: bold;
+    color: var(--white, #fff);
+    border-radius: 999px;
+    padding: 0.1rem 0.4rem;
+    font-size: 9px;
+  }
+
+  > div {
+    background-color: var(--black-100);
+  }
+}
+
 .owner {
   position: relative;
   border: 1px solid var(--color-primary);
+
   &:after {
     content: 'Owner';
     position: absolute;

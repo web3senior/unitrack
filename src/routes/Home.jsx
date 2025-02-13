@@ -130,7 +130,7 @@ function Home() {
                 </div>
 
                 <figure>
-                  <img className={`rounded ms-depth-16`} style={{width: `128px`}} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
+                  <img className={`rounded ms-depth-16`} style={{ width: `128px` }} alt={`Icon`} src={data.data.Asset[0].icons[0].src} />
                 </figure>
               </div>
             </div>
@@ -194,11 +194,11 @@ function Home() {
             <div className={`grid grid--fit grid--gap-1 w-100`} style={{ '--data-width': `250px` }}>
               {data.data.Asset[0].holders.map((holder, i) => {
                 return (
-                  <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
+                  <div key={i} className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''} ${holder.profile.id === `0x000000000000000000000000000000000000dead` ? styles['dead'] : ''}`} data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}>
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
                       <b>
-                        {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))} 
-<small className={`text-secondary`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
+                        {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}
+                        <small className={`text-secondary`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
                       </b>
                       {holder.profile.profileImages.length > 0 ? (
                         <a key={i} target={`_blank`} href={`https://universaleverything.io/${holder.profile.id}`}>
