@@ -97,7 +97,7 @@ function Home() {
       <Toaster />
       <header className={`${styles.header} d-flex flex-column align-items-center justify-content-between`}>
         <figure className={`ms-motion-slideDownIn`}>
-          <img className={`Logo`} src={Logo} alt={`${import.meta.env.VITE_NAME}`} width={220} height={48} />
+          <img style={{width: `48px`}} className={`Logo`} src={Logo} alt={`${import.meta.env.VITE_NAME}`} width={220} height={48} />
         </figure>
         <h2 className={`text-capitalize`}>{import.meta.env.VITE_NAME}</h2>
         <b>{import.meta.env.VITE_SLOGAN}</b>
