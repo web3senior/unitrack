@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useSearchParams } from 'react-router'
+import { useParams, useSearchParams, Link } from 'react-router'
 import { web3, contract, useAuth, _, provider } from './../contexts/AuthContext'
 import party from 'party-js'
 import ABI from './../abi/giftmoji.json'
@@ -46,6 +46,7 @@ function Home() {
     }
     transfers(order_by: {blockNumber: desc}, limit: 5) {
       value
+      transaction_id
       from {
         id
         fullName
@@ -176,10 +177,10 @@ function Home() {
               </div>
               <div className={`form-group`}>
                 <label htmlFor="">Theme:</label>
-                <input className={`w-100`} type={`color`} name={`theme`} />
+                <input className={`w-100`} type={`color`} name={`theme`} defaultValue={`#f8fafb`} />
               </div>
               <div className={`form-group`}>
-                <button className={`w-100 btn`}>Submit</button>
+                <button className={`w-100 btn`}>Search</button>
               </div>
             </form>
           </div>
@@ -224,10 +225,13 @@ function Home() {
                       <th>From</th>
                       <th>To</th>
                       <th>Value</th>
+                      <th>View</th>
                     </tr>
                   </thead>
                   <tbody>
                     {data.data.Asset[0].transfers.map((item, i) => {
+
+                      console.log(item)
                       return (
                         <tr key={i}>
                           <td className={`d-flex align-items-center grid--gap-025`}>
@@ -259,6 +263,10 @@ function Home() {
 
                           <td className={``}>
                             {new Intl.NumberFormat().format(parseFloat(_.fromWei(item.value, `ether`)).toFixed(2))} ${data.data.Asset[0].lsp4TokenSymbol}
+                          </td>
+
+                          <td>
+                            <Link target={`_blank`} to={`https://explorer.lukso.network/tx/${item.transaction_id}`}>View Transaction</Link>
                           </td>
                         </tr>
                       )
