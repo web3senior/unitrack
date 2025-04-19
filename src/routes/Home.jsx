@@ -161,9 +161,6 @@ function Home() {
         </figure>
         <h2 className={`text-capitalize`}>{import.meta.env.VITE_NAME}</h2>
         <b>{import.meta.env.VITE_SLOGAN}</b>
-        <a className={`text-underline`} style={{ color: `var(--black-900)` }} href={`https://universaleverything.io/0x0D5C8B7cC12eD8486E1E0147CC0c3395739F138d?network=mainnet`} target={`_blank`}>
-          Make your donation with emojis!
-        </a>
       </header>
 
       <main className={`${styles.main}`}>
@@ -196,8 +193,8 @@ function Home() {
         )}
         {data && (
           <>
-            <div className={`card`}>
-              <div className={`card__body d-flex flex-row align-items-center justify-content-between`}>
+            <div className={`card border border--danger`}>
+              <div className={`card__body d-flex flex-row align-items-center justify-content-between`} style={{background: `var(--red-050)`}}>
                 <div className={`d-flex flex-column`}>
                   <p>
                     <span>Symbol:</span> ${data.data.Asset[0].lsp4TokenSymbol}
@@ -206,16 +203,16 @@ function Home() {
                     <span>Total Supply:</span> {new Intl.NumberFormat().format(_.fromWei(data.data.Asset[0].totalSupply, `ether`))}
                   </p>
                   <p>
+                    <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
+                  </p>
+                  <p>
                     <span>Contract:</span>{' '}
                     <a target={`_blank`} href={`https://explorer.execution.mainnet.lukso.network/address/${data.data.Asset[0].id}`}>
                       View on explorer
                     </a>
                   </p>
-                  <p>
-                    <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
-                  </p>
                   <a style={{ color: 'var(--LUKSO)', textUnderlineOffset: `4px` }} className={`mt-10 text-underline d-flex align-items-center`} href={`https://universalswaps.io/tokens/lukso/${data.data.Asset[0].id}`}>
-                    <b>Swap now</b>
+                    <b>Trade now</b>
                   </a>
                 </div>
 
@@ -234,7 +231,7 @@ function Home() {
                       <th>From</th>
                       <th>To</th>
                       <th>Value</th>
-                      <th>View</th>
+                      <th>TX</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -298,7 +295,7 @@ function Home() {
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
                       <b>
                         {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}
-                        <small className={`text-secondary`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
+                        <small className={`text-info`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
                       </b>
                       {holder.profile.profileImages.length > 0 ? (
                         <a key={i} target={`_blank`} className={`d-f-c flex-column`} href={`https://universaleverything.io/${holder.profile.id}`}>
