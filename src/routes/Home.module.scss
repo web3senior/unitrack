@@ -130,6 +130,7 @@
     position: absolute;
     height: 100%;
     object-fit: fill;
+    z-index: 1;
   }
 
   &:before {
@@ -153,6 +154,7 @@
   img {
     width: 48px;
     height: 48px;
+    z-index: 2;
   }
 
   b {
