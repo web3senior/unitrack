@@ -6,6 +6,7 @@ import ABI from './../abi/giftmoji.json'
 import toast, { Toaster } from 'react-hot-toast'
 import Icon from './helper/MaterialIcon'
 import Loading from './components/LoadingSpinner'
+import AssetVideo from './../assets/asset1.webm'
 import Web3 from 'web3'
 import Logo from './../../public/logo.svg'
 import styles from './Home.module.scss'
@@ -145,7 +146,7 @@ function Home() {
         setData(res)
       })
     }
-    
+
     if (searchParams.get(`theme`)) {
       document.querySelector(`:root`).style.setProperty('--theme', `${searchParams.get(`theme`)}`)
       document.querySelector(`:root`).style.setProperty('--scrollbarBG', `${searchParams.get(`theme`)}`)
@@ -194,7 +195,7 @@ function Home() {
         {data && (
           <>
             <div className={`card border border--danger`}>
-              <div className={`card__body d-flex flex-row align-items-center justify-content-between`} style={{background: `var(--red-050)`}}>
+              <div className={`card__body d-flex flex-row align-items-center justify-content-between`} style={{ background: `var(--red-050)` }}>
                 <div className={`d-flex flex-column`}>
                   <p>
                     <span>Symbol:</span> ${data.data.Asset[0].lsp4TokenSymbol}
@@ -236,7 +237,6 @@ function Home() {
                   </thead>
                   <tbody>
                     {data.data.Asset[0].transfers.map((item, i) => {
-
                       console.log(item)
                       return (
                         <tr key={i}>
@@ -272,7 +272,9 @@ function Home() {
                           </td>
 
                           <td>
-                            <Link target={`_blank`} to={`https://explorer.lukso.network/tx/${item.transaction_id}`}>View Transaction</Link>
+                            <Link target={`_blank`} to={`https://explorer.lukso.network/tx/${item.transaction_id}`}>
+                              View Transaction
+                            </Link>
                           </td>
                         </tr>
                       )
@@ -292,10 +294,11 @@ function Home() {
                     className={`card ${styles['item']} ${data.data.Asset[0].owner_id == holder.profile.id ? styles['owner'] : ''} ${holder.profile.id === `0x000000000000000000000000000000000000dead` ? styles['dead'] : ''}`}
                     data-index={i + 1 === 1 ? `🥇` : i + 1 == 2 ? `🥈` : i + 1 === 3 ? `🥉` : i + 1}
                   >
+                    {i < 10 && <video src={AssetVideo} autoPlay loop muted />}
                     <div className={`card__body d-flex align-items-center justify-content-between`}>
                       <b>
                         {new Intl.NumberFormat().format(parseFloat(_.fromWei(holder.balance, `ether`)).toFixed(2))}
-                        <small className={`text-info`}> ${data.data.Asset[0].lsp4TokenSymbol}</small>
+                        {/* <small className={`text-info`}> ${data.data.Asset[0].lsp4TokenSymbol}</small> */}
                       </b>
                       {holder.profile.profileImages.length > 0 ? (
                         <a key={i} target={`_blank`} className={`d-f-c flex-column`} href={`https://universaleverything.io/${holder.profile.id}`}>
