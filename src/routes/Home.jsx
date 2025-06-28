@@ -17,6 +17,7 @@ const contractReadOnly = new web3ReadOnly.eth.Contract(ABI, import.meta.env.VITE
 function Home() {
   const [status, setStatus] = useState('')
   const [data, setData] = useState()
+  const [price, setPrice] = useState()
   const [lsp7list, setLsp7list] = useState([])
   let [searchParams] = useSearchParams()
 
@@ -139,11 +140,27 @@ function Home() {
     if (data.data.Asset.length > 0) setLsp7list(data.data.Asset)
   }
 
+  const getLSP7Price = async (token) => {
+    let requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+    }
+
+    const response = await fetch(`https://api.geckoterminal.com/api/v2/networks/lukso/tokens/${token}`, requestOptions)
+    if (!response.ok) throw new Response('Failed to get data', { status: 500 })
+    return response.json()
+  }
+
   useEffect(() => {
     if (searchParams.get(`asset`)) {
       get_lsp7(searchParams.get(`asset`)).then((res) => {
         // console.log(res)
         setData(res)
+      })
+
+      getLSP7Price(searchParams.get(`asset`)).then((res) => {
+        console.log(parseFloat(res.data.attributes.price_usd))
+        setPrice(parseFloat(res.data.attributes.price_usd))
       })
     }
 
@@ -194,17 +211,20 @@ function Home() {
         )}
         {data && (
           <>
-            <div className={`card border border--danger`}>
-              <div className={`card__body d-flex flex-row align-items-center justify-content-between`} style={{ background: `var(--red-050)` }}>
+            <div className={`card`}>
+              <div className={`card__body d-flex flex-row align-items-center justify-content-between`}>
                 <div className={`d-flex flex-column`}>
                   <p>
                     <span>Symbol:</span> ${data.data.Asset[0].lsp4TokenSymbol}
                   </p>
                   <p>
-                    <span>Total Supply:</span> {new Intl.NumberFormat().format(_.fromWei(data.data.Asset[0].totalSupply, `ether`))}
+                    <span>Total Supply:</span> {price && new Intl.NumberFormat().format(price)}
                   </p>
                   <p>
                     <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
+                  </p>
+                  <p>
+                    <span>Price:</span> {price && price.toPrecision(4)}$
                   </p>
                   <p>
                     <span>Contract:</span>{' '}
