@@ -218,7 +218,7 @@ function Home() {
                     <span>Symbol:</span> ${data.data.Asset[0].lsp4TokenSymbol}
                   </p>
                   <p>
-                    <span>Total Supply:</span> {price && new Intl.NumberFormat().format(price)}
+                    <span>Total Supply:</span> {new Intl.NumberFormat().format(web3.utils.fromWei(data.data.Asset[0].totalSupply,`ether`))}
                   </p>
                   <p>
                     <span>LSP7:</span> {data.data.Asset[0].isLSP7 ? `Yes` : `No`}
